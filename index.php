@@ -47,8 +47,9 @@ if ($connection->connect_errno)  {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Five-Star Lab Registration</a>
         </div>
+		<!--
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
@@ -56,15 +57,60 @@ if ($connection->connect_errno)  {
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
+		-->
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container" style="margin-top:60px;">
 
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
+     <?php
+	   
+	   if (array_key_exists('email',$_REQUEST))  {
+	     mysqli_query($connection,sprintf("insert into contacts 
+		             set name='%s',
+					     email='%s',
+						 rhug='%s'",addslashes($_REQUEST['name']),
+						            addslashes($_REQUEST['email']),
+						            addslashes($_REQUEST['rhug'])));
+	     print "<div class='alert alert-success' role='alert'>You have been registered. Expect an email with access details shortly.</div>";
+	   }
+
+	 ?>
+
+	  <p>
+	    Welcome to the Five-Star lab registration.  Please fill out the form below.  When an account has been provisioned you'll receive an
+		email with access information.
+	  </p>
+	  <hr>
+
+      <form class="form-horizontal" method="post" action="/">
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="col-sm-2 control-label">Name</label>
+		  <div class="col-sm-4">
+            <input type="text" name="name" class="form-control" placeholder="Name">
+		  </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="col-sm-2 control-label">Email</label>
+		  <div class="col-sm-4">
+            <input type="email" name="email" class="form-control" placeholder="Email">
+		  </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="col-sm-2 control-label">Register for RHUG</label>
+		  <div class="col-sm-2">
+		    <select class="form-control" name="rhug">
+		      <option value="No">No Don't Add Me</option>
+		      <option value="Minneapolis">Minneapolis Area</option>
+		      <option value="Brookfield">Brookfield Area</option>
+		      <option value="St Louis">St Louis Area</option>
+		      <option value="Other">Other</option>
+		    </select>
+		  </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
 
     </div><!-- /.container -->
 
